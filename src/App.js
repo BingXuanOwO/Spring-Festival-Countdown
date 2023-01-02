@@ -11,38 +11,36 @@ class App extends React.Component {
     super(props);
 
     // 硬编码新年时间,当前不清楚能干这事的api
-    const newYearTime = new Date(2023,1,22,0,0,0).getTime();
-
-    let isNewYear = getIsNewYear(Date.now(),newYearTime)
+    const newYearTime = new Date(2023,0,22,0,0,0).getTime();
 
     // 设置state
     this.state = {
       time: new Date(),
-      isNewYear: isNewYear,
+      isNewYear: false,
+      remainTime: 0
     };
 
-    parsingRemainTime(1674463592982)
-
-    // 获取当前时间
+    // 循环设置state
     setInterval(() => {
-      let dateNow = Date.now()
+      // 获取当前时间
+      let timeNow = Date.now()
+
       this.setState({
-        time: dateNow,
-        isNewYear: getIsNewYear(dateNow,newYearTime),
+        time: timeNow,
+        isNewYear: getIsNewYear(timeNow,newYearTime),
+        remainTime: newYearTime - timeNow
       })
+      
     }, 100);
   }
-
-  // 获取当前时间是否为新年
-
 
   render(){
     return (
       <div className="App">
         <BackgroundCanvas ></BackgroundCanvas>
-        <CurrentTime time={this.state.time.toString()} 
+        <CurrentTime time={this.state.time} 
                      isNewYear={this.state.isNewYear}
-                     remainTime={}
+                     remainTime={this.state.remainTime}
         ></CurrentTime>
       </div>
     );
