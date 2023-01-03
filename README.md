@@ -1,4 +1,4 @@
-# Chinese New Year Countdown
+# Spring Festival Countdown
 
 ## todos:
  - calc lunsolar
