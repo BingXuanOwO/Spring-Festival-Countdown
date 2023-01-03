@@ -4,7 +4,7 @@ import BackgroundCanvas from './BackgroundCanvas';
 import CurrentTime from './CurrentTime';
 
 
-import { parsingRemainTime , getIsNewYear } from './functions'
+import { getIsNewYear } from './functions'
 
 class App extends React.Component {
   constructor(props){

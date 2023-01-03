@@ -1,10 +1,11 @@
 export function getIsNewYear(timeNow,newYearTime){
-    let isNewYear = timeNow - newYearTime < 0;
+    let isNewYear = newYearTime - timeNow < 0;
 
     // 如果过了新年5天后,为空
-    if(timeNow - newYearTime > 432000000){
-      isNewYear = false
-    }
+    // if(timeNow - newYearTime > 432000000){
+    //   isNewYear = false
+    // }
+
     return isNewYear
 }
 
@@ -23,8 +24,7 @@ export function parsingTime(timeStamp){
 }
 
 export function parsingRemainTime(remainTime){
-    console.log(remainTime)
-    let time = Math.round(remainTime / 1000);
+    let time = Math.floor(remainTime / 1000);
 
     // 秒
     let seconds = time % 60;
@@ -41,10 +41,6 @@ export function parsingRemainTime(remainTime){
     // 天
     let day = time;
 
-    // console.log("seconds:" + seconds + "\r\n");
-    // console.log("minutes:" + minutes + "\r\n");
-    // console.log("hour:" + hour + "\r\n");
-    // console.log("day:" + day + "\r\n");
     
     let parsedRemainTime = "";
 

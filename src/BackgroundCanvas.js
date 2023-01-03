@@ -1,4 +1,5 @@
 import React from "react";
+import './BackgroundCanvas.css'
 
 
 class BackgroundCanvas extends React.Component {
@@ -8,7 +9,7 @@ class BackgroundCanvas extends React.Component {
     render() { 
         return (
         <canvas>
-
+            
         </canvas>
         );
     }
