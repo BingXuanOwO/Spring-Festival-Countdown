@@ -21,7 +21,6 @@ const drawTicks = ()=>{
             // console.log(element.alpha)
             if(element.alpha < 0){
                 Fireworks.splice(index,1)
-                console.log(Fireworks)
             }
         })
     }
@@ -29,6 +28,8 @@ const drawTicks = ()=>{
 }
 
 drawTicks()
+
+
 
 class BackgroundCanvas extends React.Component {
     constructor(props){
@@ -53,6 +54,19 @@ class BackgroundCanvas extends React.Component {
                     this.addFirework(event.clientX,event.clientY)
                 }, 200);
             })
+
+            // 随机烟花
+            this.randomFirework()
+        }
+    }
+    randomFirework (){
+        const canvas = document.querySelector("canvas");
+        if(canvas != null){
+            setInterval(() => {
+                let x = Math.random() * (canvas.width - 70) + 70
+                let y = Math.random() * (canvas.height - 70) + 70
+                this.addFirework(x,y)
+            }, 100);
         }
     }
     addFirework(x,y){

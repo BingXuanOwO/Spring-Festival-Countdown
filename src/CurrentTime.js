@@ -5,7 +5,7 @@ import './CurrentTime.css'
 class CurrentTime extends React.Component {
     getRemainTime(){
         if(this.props.isNewYear){
-            return <h1 id="remainTime">新春快乐</h1>
+            return <h1 id="remainTime">新春快乐！</h1>
         }
         return <h1 id="remainTime">距离新春还剩 {parsingRemainTime(this.props.remainTime)}</h1>
     }

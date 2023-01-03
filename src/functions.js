@@ -61,7 +61,7 @@ export class Firework {
         this.ctx = ctx
         this.count = Math.round(Math.random() * 15 + 10)
         this.radius = Math.round(Math.random() * 2 + 10)
-        this.speed = 30
+        this.speed = 20
         this.gravaty = 1
 
         this.alpha = 1
@@ -89,9 +89,7 @@ export class Firework {
             // 填色
             this.ctx.closePath();
             let color = `HSL(${point.hue},80%,60%)`
-            console.log(color)
             this.ctx.fillStyle = color
-            console.log(point.hue)
             this.ctx.fill();
 
             this.points.push(point)
@@ -103,7 +101,6 @@ export class Firework {
         for (let index = 0; index < this.points.length; index++) {
             const element = this.points[index];
 
-            console.log(element)
             let radians = element.angle * Math.PI / 180;
 
             // 求出点的xy
@@ -117,43 +114,21 @@ export class Firework {
             // 填色
             this.ctx.closePath();
             let color = `HSL(${element.hue},80%,60%)`
-            console.log(color)
             this.ctx.fillStyle = color
-            console.log(element.color)
             this.ctx.fill();
 
             // 通过增大半径逐渐将点外移
             element.radius *= 1 + this.speed / 120
-            this.speed = this.speed * 0.9976
-            this.alpha -= 0.001;
+            this.speed = this.speed * 0.9980
+            this.alpha -= 0.0005;
 
             // 计算y下坠值
-            this.gravaty *= 1.006
+            this.gravaty += 0.3
             
         }
-        
-        // for (let i = 0; i < this.count; i++) {
-        //     let angle = 360 / this.count * i;
-        //     let radians = angle * Math.PI / 180;
-
-        //     // 求出烟花xy
-        //     let arcx = Math.cos(radians) * this.radius
-        //     let arcy = Math.sin(radians) * this.radius + (this.gravaty * 0.1)
-
-        //     this.ctx.beginPath();
-        //     this.ctx.arc(arcx + this.x, arcy + this.y , 2, Math.PI * 2, false);
-
-        //     this.ctx.closePath();
-        //     this.ctx.fillStyle = `rgba(255,0,0,${this.alpha})`
-        //     this.ctx.fill();
-        // }
-        // this.radius *= 1 + this.speed / 120
-        // this.alpha -= 0.019;
-
-        // //计算y下坠值
-        // this.gravaty *= 1.14
     }
 }
+
 
 class Point{
     constructor(radius,hue,speed,angle){
