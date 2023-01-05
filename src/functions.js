@@ -59,22 +59,34 @@ export class Firework {
         this.x = x
         this.y = y
         this.ctx = ctx
-        this.count = Math.round(Math.random() * 15 + 10)
-        this.radius = Math.round(Math.random() * 2 + 10)
-        this.speed = 20
+
+        this.hue = Math.random() * 360
+
+        this.radius = Math.round(Math.random() * 6 + 4)
+
+        // 半径大的时候数量同步会增加
+        this.count = Math.round(Math.random() * 20 + (this.radius * 5))
+
+        this.speed = 5
+        this.speedNow = this.speed
+
+        this.onFireUping = true
+        this.fireUpHeight = 0
+
         this.gravaty = 1
 
         this.alpha = 1
-        
+
         this.points = []
 
         for (let i = 0; i < this.count; i++) {
-            // let angle = 360 / this.count * i;
-            // 生成角度半径和hsl色相
+            // 生成点角度半径
             let point = new Point;
-            point.angle = Math.random() * 360;
-            point.radius = Math.round(Math.random() * 5 + 1)
-            point.hue = Math.random() * 360;
+            point.angle =  Math.random() * 360 ;
+            point.radius = i > 10 ? Math.random() * this.radius : Math.random * 2 + this.radius - 2;
+
+            // 在范围内随机颜色
+            point.hsl = `${Math.ceil(Math.random() * (this.hue - 5) + 5)},${Math.ceil(Math.random() * 20 + 70)}%,${Math.ceil(Math.random() * 20 + 40)}%`
 
             let radians = point.angle * Math.PI / 180;
 
@@ -88,7 +100,7 @@ export class Firework {
 
             // 填色
             this.ctx.closePath();
-            let color = `HSL(${point.hue},80%,60%)`
+            let color = `HSLA(${point.hsl},1)`
             this.ctx.fillStyle = color
             this.ctx.fill();
 
@@ -101,11 +113,9 @@ export class Firework {
         for (let index = 0; index < this.points.length; index++) {
             const element = this.points[index];
 
-            let radians = element.angle * Math.PI / 180;
-
             // 求出点的xy
-            let arcx = Math.cos(radians) * element.radius
-            let arcy = Math.sin(radians) * element.radius + (this.gravaty * 0.1)
+            let arcx = Math.cos(element.angle) * element.radius
+            let arcy = Math.sin(element.angle) * element.radius + this.gravaty
             
             // 开始绘制
             this.ctx.beginPath();
@@ -113,27 +123,33 @@ export class Firework {
 
             // 填色
             this.ctx.closePath();
-            let color = `HSL(${element.hue},80%,60%)`
-            this.ctx.fillStyle = color
+            this.ctx.fillStyle = `HSLA(${element.hsl},${Math.sqrt(1 - (this.alpha - 1)* (this.alpha - 1))})`
             this.ctx.fill();
 
             // 通过增大半径逐渐将点外移
-            element.radius *= 1 + this.speed / 120
-            this.speed = this.speed * 0.9980
-            this.alpha -= 0.0005;
-
-            // 计算y下坠值
-            this.gravaty += 0.3
+            element.radius *= (1 + (this.speedNow / 80))
             
         }
+
+        // 计算速度
+        this.speedNow = this.speedNow > (this.speed * 0.975) ? this.speedNow * 0.9980 : this.speedNow * 0.98 ;
+
+        // 计算透明度
+        this.alpha -= 0.012;
+        // 计算y下坠值
+        this.gravaty *= 1.053
+    }
+
+    drawOnFireUp(){
+
     }
 }
 
 
 class Point{
-    constructor(radius,hue,speed,angle){
+    constructor(radius,hsl,speed,angle){
         this.radius = radius;
-        this.hue = hue;
+        this.hsl = hsl;
         this.speed = speed;
         this.angle = angle;
     }

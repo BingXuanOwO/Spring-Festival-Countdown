@@ -11,7 +11,11 @@
     justify-content: center;
     align-items: center;
     
-    color: #fff
+    color: #fff;
+    
+    user-select: none;
+
+    pointer-events: none;
 }
 
 #timeNow{
