@@ -39,11 +39,6 @@ class App extends React.Component {
       })
     },300);
 
-    setInterval(() => {
-      console.log(this.state.fireworks)
-      
-    }, 200);
-
     this.drawTicks()
 
     this.randomFirework()
@@ -67,14 +62,17 @@ class App extends React.Component {
   // 随机烟花部分
   randomFirework (){
     setTimeout(async () => {
-      // 随机 1 - 3 个
-      let fireworkCount = Math.round(Math.random() * 2);
-
-      for (let index = 0; index < fireworkCount; index++) {
-        let x = Math.random() * Math.round(window.innerWidth * 0.8) + Math.round(window.innerWidth * 0.1)
-        let y = Math.random() * Math.round(window.innerHeight * 0.8) + Math.round(window.innerHeight * 0.1)
-        await this.addFirework(Math.round(x),Math.round(y))
+      // 非离屏状态
+      if(!document.hidden){
+        // 随机 1 - 3 个
+        let fireworkCount = Math.round(Math.random() * 2);
+        for (let index = 0; index < fireworkCount; index++) {
+          let x = Math.random() * Math.round(window.innerWidth * 0.8) + Math.round(window.innerWidth * 0.1)
+          let y = Math.random() * Math.round(window.innerHeight * 0.8) + Math.round(window.innerHeight * 0.1)
+          await this.addFirework(Math.round(x),Math.round(y))
+        }
       }
+
       this.randomFirework();
     },  Math.round(Math.random() * 500 + 100));
   }
@@ -97,7 +95,7 @@ class App extends React.Component {
   drawTicks(){
     // 清除画布
     const canvas = document.querySelector("canvas");
-    if(canvas!=null){
+    if(!document.hidden && canvas != null){
       const ctx = canvas.getContext("2d")
       ctx.fillStyle = 'rgba(0,0,0,0.07)'
       ctx.fillRect(0, 0, canvas.width, canvas.height);
