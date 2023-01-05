@@ -36,10 +36,13 @@ class App extends React.Component {
         time: timeNow,
         isNewYear: getIsNewYear(timeNow,newYearTime),
         remainTime: newYearTime - timeNow,
-        fireworks: this.state.fireworks,
       })
+    },300);
+
+    setInterval(() => {
+      console.log(this.state.fireworks)
       
-    }, Math.round(Math.random() * 1000 + 400));
+    }, 200);
 
     this.drawTicks()
 
@@ -63,24 +66,32 @@ class App extends React.Component {
 
   // 随机烟花部分
   randomFirework (){
-    setTimeout(() => {
+    setTimeout(async () => {
       // 随机 1 - 3 个
       let fireworkCount = Math.round(Math.random() * 2);
 
       for (let index = 0; index < fireworkCount; index++) {
-          let x = Math.random() * Math.round(window.innerWidth * 0.8) + Math.round(window.innerWidth * 0.1)
-          let y = Math.random() * Math.round(window.innerHeight * 0.8) + Math.round(window.innerHeight * 0.1)
-          this.addFirework(Math.round(x),Math.round(y))
+        let x = Math.random() * Math.round(window.innerWidth * 0.8) + Math.round(window.innerWidth * 0.1)
+        let y = Math.random() * Math.round(window.innerHeight * 0.8) + Math.round(window.innerHeight * 0.1)
+        await this.addFirework(Math.round(x),Math.round(y))
       }
       this.randomFirework();
-    }, 550);
+    },  Math.round(Math.random() * 500 + 100));
   }
 
   // 添加烟花
   addFirework(x,y){
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-    this.state.fireworks.push(new Firework(x,y,ctx))
+    return new Promise(async (resolve)=>{
+      const ctx = document.querySelector("canvas").getContext("2d");
+
+      let fireworks = [...this.state.fireworks]
+
+      fireworks.push(new Firework(x,y,ctx))
+      this.setState({
+        fireworks : fireworks
+      },()=>resolve()) 
+      
+    });
   }
 
   drawTicks(){
@@ -90,26 +101,26 @@ class App extends React.Component {
       const ctx = canvas.getContext("2d")
       ctx.fillStyle = 'rgba(0,0,0,0.07)'
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+
+      // 绘制每个烟花
+      if( this.state.fireworks !== 0 ){
+
+        this.state.fireworks.forEach((element,index)=>{
+          element.drawFireworks()
+
+          // 当烟花透明度降到0时删掉
+          if(element.alpha < 0){
+            let fireworks = [...this.state.fireworks]
+            fireworks.splice(index,1)
+            this.setState({
+              fireworks: fireworks
+            })
+          }
+        })
+      }
     }
 
-    // 绘制每个烟花
-    if( this.state.fireworks !== 0 ){
-      this.state.fireworks.forEach((element,index)=>{
-        element.drawFireworks()
-
-        // 当烟花透明度降到0时删掉
-        if(element.alpha < 0){
-          let [...fireworks] = this.state.fireworks
-          fireworks.splice(index,1)
-          this.setState({
-            time: this.state.time,
-            isNewYear: this.state.isNewYear,
-            remainTime: this.state.remainTime,
-            fireworks: fireworks
-          })
-        }
-      })
-    }
     requestAnimationFrame(this.drawTicks)
   }
   
