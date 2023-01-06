@@ -54,7 +54,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <BackgroundCanvas
-                          canvasOnclickHandler={this.canvasOnclickHandler}
+                     canvasOnclickHandler={this.canvasOnclickHandler}
         ></BackgroundCanvas>
         <CurrentTime time={this.state.time} 
                      isNewYear={this.state.isNewYear}

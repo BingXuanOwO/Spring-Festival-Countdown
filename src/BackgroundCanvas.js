@@ -18,7 +18,7 @@ class BackgroundCanvas extends React.Component {
     }
 
     render() { 
-        return (<canvas onClick={(event)=>this.props.canvasOnclickHandler(event)}></canvas>);
+        return (<canvas onClick={(event)=>this.props.canvasOnclickHandler(event)}>您的浏览器可能不支持canvas或canvas被拦截。如需完整体验，请更换支持canvas的浏览器或针对此站点取消禁用canvas。</canvas>);
     }
 }
  
