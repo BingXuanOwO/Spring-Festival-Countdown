@@ -41,8 +41,13 @@ class App extends React.Component {
 
     this.drawTicks()
 
-    this.randomFirework()
-    
+    let checkIsNewYearInterval = setInterval(()=>{
+      if(this.state.isNewYear){
+        this.randomFirework()
+        clearInterval(checkIsNewYearInterval)
+      }
+    },300)
+
   }
 
   render(){
