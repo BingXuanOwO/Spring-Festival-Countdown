@@ -69,6 +69,7 @@ export class Firework {
 
         this.speed = 5
         this.speedNow = this.speed
+        this.fireupSpeed = this.speed
 
         this.onFireUping = true
         this.fireUpHeight = 0
@@ -90,19 +91,19 @@ export class Firework {
 
             let radians = point.angle * Math.PI / 180;
 
-            // 求出点的xy
-            let arcx = Math.cos(radians) * point.radius
-            let arcy = Math.sin(radians) * point.radius + (this.gravaty * 0.1)
+            // // 求出点的xy
+            // let arcx = Math.cos(radians) * point.radius
+            // let arcy = Math.sin(radians) * point.radius + (this.gravaty * 0.1)
 
-            // 开始绘制
-            this.ctx.beginPath();
-            this.ctx.arc(arcx + this.x, arcy + this.y , 2, Math.PI * 2, false);
+            // // 开始绘制
+            // this.ctx.beginPath();
+            // this.ctx.arc(arcx + this.x, arcy + this.y , 2, Math.PI * 2, false);
 
-            // 填色
-            this.ctx.closePath();
-            let color = `HSLA(${point.hsl},1)`
-            this.ctx.fillStyle = color
-            this.ctx.fill();
+            // // 填色
+            // this.ctx.closePath();
+            // let color = `HSLA(${point.hsl},1)`
+            // this.ctx.fillStyle = color
+            // this.ctx.fill();
 
             this.points.push(point)
         }
@@ -141,7 +142,22 @@ export class Firework {
     }
 
     drawOnFireUp(){
-
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, window.innerHeight - this.fireUpHeight , 3 , Math.PI * 2 , false)
+        this.ctx.closePath();
+        this.ctx.fillStyle = `HSLA(${this.hue},80%,50%)`
+        this.ctx.fill()
+        
+        this.fireUpHeight += (1 + this.fireupSpeed) * window.innerHeight / 600
+        
+        
+        if(window.innerHeight - this.fireUpHeight <= this.y){
+            this.onFireUping = false
+            console.log(this.fireUpHeight + ',' +this.y)
+        }
+        this.fireupSpeed = this.fireupSpeed > (this.speed * 0.975) ? this.fireupSpeed * 0.9980 : this.fireupSpeed * 0.988 ;
+        console.log(this.fireupSpeed)
+        // 
     }
 }
 

@@ -105,7 +105,7 @@ class App extends React.Component {
       if( this.state.fireworks !== 0 ){
 
         this.state.fireworks.forEach((element,index)=>{
-          element.drawFireworks()
+          element.onFireUping ? element.drawOnFireUp() : element.drawFireworks() ;
 
           // 当烟花透明度降到0时删掉
           if(element.alpha < 0){
