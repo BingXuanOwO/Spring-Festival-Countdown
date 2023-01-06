@@ -17,7 +17,11 @@ export function parsingTime(timeStamp){
     
     parsedTime += " "
 
-    parsedTime += `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+    let hour = time.getHours();
+    let minute = time.getMinutes();
+    let seconds = time.getSeconds();
+
+    parsedTime += `${hour > 10 ? hour : '0' + hour }:${minute > 10 ? minute : '0' + minute}:${seconds > 10 ? seconds : '0' + seconds}`;
 
 
     return parsedTime
