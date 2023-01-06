@@ -5,3 +5,26 @@
   width: 100vw;
 }
 
+footer{
+  color: #fff;
+
+  position: fixed;
+  white-space: nowrap;
+  width: 100%;
+  bottom: 0;
+  font-size: 12px;
+
+  opacity: .3;
+
+  transition: .3s;
+
+  user-select: none;
+}
+
+footer:hover{
+  opacity: 1;
+}
+
+footer a{
+  color: #229ecf;
+}

@@ -60,6 +60,9 @@ class App extends React.Component {
                      isNewYear={this.state.isNewYear}
                      remainTime={this.state.remainTime}
         ></CurrentTime>
+        <footer>
+          by <a href='https://www.bing-xuan.cn'>冰轩</a>
+        </footer>
       </div>
     );
   }
