@@ -11,7 +11,7 @@ footer{
   position: fixed;
   white-space: nowrap;
   width: 100%;
-  bottom: 0;
+  bottom: 10px;
   font-size: 12px;
 
   opacity: .3;
