@@ -35,7 +35,7 @@ class App extends React.Component {
       this.setState({
         time: timeNow,
         isNewYear: getIsNewYear(timeNow,newYearTime),
-        remainTime: newYearTime - timeNow,
+        remainTime: newYearTime - timeNow + 1000,
       })
     },300);
 
