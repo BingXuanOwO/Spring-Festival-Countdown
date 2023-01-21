@@ -93,8 +93,6 @@ export class Firework {
             // 在范围内随机颜色
             point.hsl = `${Math.ceil(Math.random() * (this.hue - 5) + 5)},${Math.ceil(Math.random() * 20 + 70)}%,${Math.ceil(Math.random() * 20 + 40)}%`
 
-            let radians = point.angle * Math.PI / 180;
-
             // // 求出点的xy
             // let arcx = Math.cos(radians) * point.radius
             // let arcy = Math.sin(radians) * point.radius + (this.gravaty * 0.1)
