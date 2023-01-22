@@ -13,7 +13,7 @@ export function parsingTime(timeStamp){
     let parsedTime = ""
     let time = new Date(timeStamp)
 
-    parsedTime += `${time.getFullYear()}年${time.getMonth() + 1}月${time.getDay()}日`;
+    parsedTime += `${time.getFullYear()}年${time.getMonth() + 1}月${time.getDate() + 1}日`;
     
     parsedTime += " "
 
